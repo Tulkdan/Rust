@@ -3,6 +3,39 @@ pub struct Graph {
     items: Vec<Vec<i32>>
 }
 
+#[derive(PartialEq, Clone, Debug)]
+pub enum Visited {
+    Yes,
+    No
+}
+
+#[derive(Clone, Debug)]
+pub struct Dijkstra {
+    distance: i32,
+    visited: Visited,
+}
+
+impl Dijkstra {
+    pub fn new() -> Dijkstra {
+        Dijkstra {
+            distance: i32::max_value(),
+            visited: Visited::No,
+        }
+    }
+
+    pub fn reset_distance(&mut self) {
+        self.set_distance(0);
+    }
+
+    pub fn set_visited(&mut self, visited: Visited) {
+        self.visited = visited;
+    }
+
+    pub fn set_distance(&mut self, distance: i32) {
+        self.distance = distance;
+    }
+}
+
 impl Graph {
     pub fn new(vertices: i32) -> Graph {
         let items = vec![
@@ -20,24 +53,24 @@ impl Graph {
         self.items[idx].extend_from_slice(values);
     }
 
-    pub fn dijkstra(&self, src: i32) -> Vec<i32> {
-        let mut dist = vec![i32::max_value(); self.vertices as usize];
-        dist[src as usize] = 0;
-
-        let mut spt_set = vec![false; self.vertices as usize];
+    pub fn dijkstra(&self, src: i32) -> Vec<Dijkstra> {
+        let mut dist = vec![Dijkstra::new(); self.vertices as usize];
+        dist[src as usize].reset_distance();
 
         for _ in 0..self.vertices - 1 {
-            let u = self.min_distance(&dist, &spt_set);
+            let u = self.min_distance(&dist);
 
-            spt_set[u as usize] = true;
+            dist[u].set_visited(Visited::Yes);
 
             for v in 0..self.vertices {
-                let vert = &self.items[u as usize];
-                if !spt_set[v as usize]
-                    && vert[v as usize] > 0
-                    && dist[u as usize] != i32::max_value()
-                    && (dist[u as usize] + vert[v as usize]) < dist[v as usize] {
-                        dist[v as usize] = dist[u as usize] + vert[v as usize];
+                let item = &self.items[u as usize];
+
+                if dist[v as usize].visited == Visited::No
+                    && item[v as usize] > 0
+                    && dist[u].distance != i32::max_value()
+                    && (dist[u].distance + item[v as usize]) < dist[v as usize].distance {
+                        let sum = dist[u].distance + item[v as usize];
+                        dist[v as usize].set_distance(sum);
                 }
             }
         }
@@ -45,13 +78,13 @@ impl Graph {
         dist
     }
 
-    fn min_distance(&self, dist: &Vec<i32>, spt_set: &Vec<bool>) -> i32 {
+    fn min_distance(&self, dist: &Vec<Dijkstra>) -> usize {
         let mut min_index = 0;
         let mut min = i32::max_value();
 
-        for idx in 0..self.vertices {
-            if !spt_set[idx as usize] && dist[idx as usize] <= min {
-                min = dist[idx as usize];
+        for (idx, item) in dist.iter().enumerate() {
+            if item.visited == Visited::No && item.distance <= min {
+                min = item.distance;
                 min_index = idx;
             }
         }
@@ -123,7 +156,10 @@ mod tests {
         }
 
         let expect_distances = [0, 4, 12, 19, 21, 11, 9, 8, 14];
+        let dijkstra = graph.dijkstra(0);
 
-        assert_eq!(graph.dijkstra(0), expect_distances);
+        for (idx, distance) in expect_distances.iter().enumerate() {
+            assert_eq!(dijkstra[idx].distance, *distance);
+        }
     }
 }
