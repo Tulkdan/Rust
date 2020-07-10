@@ -1,3 +1,8 @@
+#[derive(Debug, PartialEq)]
+pub enum Errors {
+    EmptyGraph
+}
+
 pub struct Graph {
     vertices: i32,
     items: Vec<Vec<i32>>
@@ -53,7 +58,14 @@ impl Graph {
         self.items[idx].extend_from_slice(values);
     }
 
-    pub fn dijkstra(&self, src: i32) -> Vec<Dijkstra> {
+    pub fn dijkstra(&self, src: i32) -> Result<Vec<Dijkstra>, Errors> {
+        // Verify if every vert has set up it's connection length
+        for item in self.items.iter() {
+            if item.len() == 0 {
+                return Err(Errors::EmptyGraph)
+            }
+        }
+
         let mut dist = vec![Dijkstra::new(); self.vertices as usize];
         dist[src as usize].reset_distance();
 
@@ -75,7 +87,7 @@ impl Graph {
             }
         }
 
-        dist
+        Ok(dist)
     }
 
     fn min_distance(&self, dist: &Vec<Dijkstra>) -> usize {
@@ -156,10 +168,20 @@ mod tests {
         }
 
         let expect_distances = [0, 4, 12, 19, 21, 11, 9, 8, 14];
-        let dijkstra = graph.dijkstra(0);
+        let dijkstra = graph.dijkstra(0).unwrap();
 
         for (idx, distance) in expect_distances.iter().enumerate() {
             assert_eq!(dijkstra[idx].distance, *distance);
         }
+    }
+
+    #[test]
+    fn should_throw_error_dijkstra_when_emtpy() {
+        let graph = Graph::new(9);
+
+        match graph.dijkstra(0) {
+            Ok(_) => assert!(false),
+            Err(e) => assert_eq!(e, Errors::EmptyGraph),
+        };
     }
 }
