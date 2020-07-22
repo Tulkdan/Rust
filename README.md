@@ -40,9 +40,9 @@ These are for demonstration purposes only.
 - [Queue](./src/data_structures/queue.rs)
 - [Heap](./src/data_structures/heap.rs)
 - [Linked List](./src/data_structures/linked_list.rs)
-- Graph _(Not implemented yet)_
-  - Directed _(Not implemented yet)_
-  - Undirected _(Not implemented yet)_
+- [Graph](./src/data_structures/graph.rs)
+  - [Directed](./src/data_structures/directed_graph.rs)
+  - [Undirected](./src/data_structures/undirected_graph.rs)
 - Trie _(Not implemented yet)_
 - Binary Tree _(Not implemented yet)_
 - [B-Tree](./src/data_structures/b_tree.rs)
