@@ -1,43 +1,11 @@
-#[derive(Debug, PartialEq)]
-pub enum Errors {
-    OutOfBounds
+use data_structures::graph::{Errors, Node, Graph};
+
+pub trait UndirectedGraph {
+    fn add_edge(&mut self, origin: usize, destination: usize) -> Result<(), Errors>;
 }
 
-#[derive(Clone, PartialEq)]
-pub struct Node {
-    value: i32,
-    pointers: Vec<i32>
-}
-
-impl Node {
-    pub fn new(value: i32) -> Node {
-        Node { value, pointers: vec![] }
-    }
-}
-
-pub struct UndirectedGraph {
-    nodes: Vec<Node>,
-    length: usize,
-}
-
-impl UndirectedGraph {
-    pub fn new(nodes_qtd: usize) -> UndirectedGraph {
-        UndirectedGraph {
-            nodes: vec![],
-            length: nodes_qtd,
-        }
-    }
-
-    pub fn add_node(&mut self, node: Node) -> Result<(), Errors> {
-        if self.nodes.len() + 1 > self.length {
-            return Err(Errors::OutOfBounds);
-        }
-
-        self.nodes.push(node);
-        Ok(())
-    }
-
-    pub fn add_edge(&mut self, origin: usize, destination: usize) -> Result<(), Errors> {
+impl UndirectedGraph for Graph {
+    fn add_edge(&mut self, origin: usize, destination: usize) -> Result<(), Errors> {
         if destination >= self.nodes.len() || destination >= self.length || origin >= self.length {
             return Err(Errors::OutOfBounds);
         }
@@ -56,27 +24,8 @@ mod tests {
     use super::*;
 
     #[test]
-    fn should_create_an_empty_vector() {
-        let graph = UndirectedGraph::new(2);
-        assert_eq!(graph.nodes.len(), 0);
-        assert_eq!(graph.length, 2);
-    }
-
-    #[test]
-    fn should_add_node_to_graph() {
-        let mut graph = UndirectedGraph::new(2);
-        let first_node = Node::new(0);
-
-        graph.add_node(first_node).unwrap();
-
-        assert_eq!(graph.nodes.len(), 1);
-        assert_eq!(graph.nodes[0].value, 0);
-        assert_eq!(graph.nodes[0].pointers.len(), 0);
-    }
-
-    #[test]
     fn should_add_edge_to_both_nodes() {
-        let mut graph = UndirectedGraph::new(3);
+        let mut graph = Graph::new(3);
         let first_node = Node::new(0);
         let second_node = Node::new(8);
         let third_node = Node::new(5);
@@ -96,7 +45,7 @@ mod tests {
 
     #[test]
     fn should_throw_error_when_adding_non_existed_edge() {
-        let mut graph = UndirectedGraph::new(2);
+        let mut graph = Graph::new(2);
         let first_node = Node::new(0);
 
         graph.add_node(first_node).unwrap();
@@ -104,19 +53,6 @@ mod tests {
         match graph.add_edge(0, 1) {
             Err(e) => assert_eq!(e, Errors::OutOfBounds),
             Ok(_) => assert!(false)
-        };
-    }
-
-    #[test]
-    fn should_throw_error_when_exceeding_nodes() {
-        let mut graph = UndirectedGraph::new(1);
-        let first_node = Node::new(0);
-        let second_node = Node::new(4);
-
-        graph.add_node(first_node).unwrap();
-        match graph.add_node(second_node) {
-            Ok(_) => assert!(false),
-            Err(e) => assert_eq!(e, Errors::OutOfBounds)
         };
     }
 }
