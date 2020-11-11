@@ -12,7 +12,7 @@ These are for demonstration purposes only.
 - [Insertion](./src/sorting/insertion_sort.rs)
 - [Merge](./src/sorting/merge_sort.rs)
 - [Quick](./src/sorting/quick_sort.rs)
-- Radix _(Not implemented yet)_
+- [Radix](./src/sorting/radix_sort.rs)
 - [Selection](./src/sorting/selection_sort.rs)
 - [Shell](./src/sorting/shell_sort.rs)
 
@@ -28,7 +28,7 @@ These are for demonstration purposes only.
 
 - 0-1 Knapsack _(Not implemented yet)_
 - [Edit Distance](./src/dynamic_programming/edit_distance.rs)
-- Longest common subsequence _(Not implemented yet)_
+- [Longest common subsequence](./src/dynamic_programming/longest_common_subsequence.rs)
 - Longest increasing subsequence _(Not implemented yet)_
 - [K-Means Clustering](./src/general/kmeans.rs)
 - Coin Change _(Not implemented yet)_
@@ -44,7 +44,7 @@ These are for demonstration purposes only.
   - [Directed](./src/data_structures/directed_graph.rs)
   - [Undirected](./src/data_structures/undirected_graph.rs)
 - Trie _(Not implemented yet)_
-- Binary Tree _(Not implemented yet)_
+- [Binary Search Tree](./src/data_structures/binary_search_tree.rs)
 - [B-Tree](./src/data_structures/b_tree.rs)
 - AVL Tree _(Not implemented yet)_
 
@@ -58,7 +58,7 @@ These are for demonstration purposes only.
 - [Convex Hull: Graham Scan](./src/general/convex_hull.rs)
 - N-Queensp _(Not implemented yet)_
 - Graph Coloringp _(Not implemented yet)_
-- Tower of Hanoip _(Not implemented yet)_
+- [Tower of Hanoi](./src/general/hanoi.rs)
 
 ## [Search Algorithms](./src/searching)
 
