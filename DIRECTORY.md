@@ -9,9 +9,13 @@
   * Data Structures
     * [B Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/b_tree.rs)
     * [Binary Search Tree](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/binary_search_tree.rs)
+    * [Directed Graph](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/directed_graph.rs)
+    * [Graph](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/graph.rs)
     * [Heap](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/heap.rs)
     * [Linked List](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/linked_list.rs)
     * [Mod](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/mod.rs)
+    * [Queue](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/queue.rs)
+    * [Undirected Graph](https://github.com/TheAlgorithms/Rust/blob/master/src/data_structures/undirected_graph.rs)
   * Dynamic Programming
     * [Edit Distance](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/edit_distance.rs)
     * [Egg Dropping](https://github.com/TheAlgorithms/Rust/blob/master/src/dynamic_programming/egg_dropping.rs)
@@ -24,6 +28,9 @@
     * [Hanoi](https://github.com/TheAlgorithms/Rust/blob/master/src/general/hanoi.rs)
     * [Kmeans](https://github.com/TheAlgorithms/Rust/blob/master/src/general/kmeans.rs)
     * [Mod](https://github.com/TheAlgorithms/Rust/blob/master/src/general/mod.rs)
+  * Graph
+    * [Dijkstra](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/dijkstra.rs)
+    * [Mod](https://github.com/TheAlgorithms/Rust/blob/master/src/graph/mod.rs)
   * [Lib](https://github.com/TheAlgorithms/Rust/blob/master/src/lib.rs)
   * Searching
     * [Binary Search](https://github.com/TheAlgorithms/Rust/blob/master/src/searching/binary_search.rs)
